@@ -1,0 +1,287 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Swagger order test - MEERO",
+    "version": "1.0.0",
+    "title": "Orders - MEERO"
+  },
+  "basePath": "/",
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "paths": {
+    "/orders": {
+      "get": {
+        "tags": [
+          "orders"
+        ],
+        "summary": "List all orders",
+        "description": "List all orders",
+        "operationId": "getorders",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "type": "integer",
+            "name": "offset",
+            "default": 0,
+            "description": "start page in case of server side pagination"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "type": "integer",
+            "default": 50,
+            "description": "nb rows in case of server side pagination"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/response_order_list"
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "schema": {
+              "$ref": "#/definitions/response_error"
+            }
+          },
+          "500": {
+            "description": "Internal error",
+            "schema": {
+              "$ref": "#/definitions/response_error"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "orders"
+        ],
+        "summary": "Create new order",
+        "description": "Create new order",
+        "operationId": "createorder",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "order's detail",
+            "schema": {
+              "type": "object",
+              "required": [
+                "order_status",
+                "order_id"
+              ],
+              "properties": {
+                "order_id": {
+                  "type": "string"
+                },
+                "order_status": {
+                  "type": "string"
+                },
+                "order_mrid": {
+                  "type": "string"
+                },
+                "order_refid": {
+                  "type": "string"
+                },
+                "order_purchase_date": {
+                  "type": "string",
+                  "format": "date-time"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/order"
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "schema": {
+              "$ref": "#/definitions/response_error"
+            }
+          },
+          "500": {
+            "description": "Internal error",
+            "schema": {
+              "$ref": "#/definitions/response_error"
+            }
+          }
+        }
+      }
+    },
+    "/orders/{id}": {
+      "get": {
+        "tags": [
+          "orders"
+        ],
+        "summary": "Infos about an order",
+        "description": "Infos about an order",
+        "operationId": "get_order_by_id",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "order's id",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/order"
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "schema": {
+              "$ref": "#/definitions/response_error"
+            }
+          },
+          "404": {
+            "description": "Order not found",
+            "schema": {
+              "$ref": "#/definitions/response_error"
+            }
+          },
+          "500": {
+            "description": "Internal error",
+            "schema": {
+              "$ref": "#/definitions/response_error"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "orders"
+        ],
+        "summary": "Update order's infos",
+        "description": "Update order's infos",
+        "operationId": "update_order",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "order's id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "query",
+            "description": "order to update.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "order_id": {
+                  "type": "string"
+                },
+                "order_status": {
+                  "type": "string"
+                },
+                "order_mrid": {
+                  "type": "string"
+                },
+                "order_refid": {
+                  "type": "string"
+                },
+                "order_purchase_date": {
+                  "type": "string",
+                  "format": "date"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/order"
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "schema": {
+              "$ref": "#/definitions/response_error"
+            }
+          },
+          "404": {
+            "description": "Order not found",
+            "schema": {
+              "$ref": "#/definitions/response_error"
+            }
+          },
+          "500": {
+            "description": "Internal error",
+            "schema": {
+              "$ref": "#/definitions/response_error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "response_error": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "description": "error message"
+        }
+      }
+    },
+    "response_order_list": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/order"
+      }
+    },
+    "order": {
+      "type": "object",
+      "properties": {
+        "order_id": {
+          "type": "string"
+        },
+        "order_status": {
+          "type": "string"
+        },
+        "order_mrid": {
+          "type": "string"
+        },
+        "order_refid": {
+          "type": "string"
+        },
+        "order_purchase_date": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  }
+}
