@@ -9,7 +9,7 @@
 namespace App\Domain\Order\Repository;
 
 use App\Domain\Order\Entity\OrderCollection;
-use App\Domain\Order\Entity\OrderEntity;
+use App\Domain\Order\Entity\OrdersEntity;
 
 interface OrderRepositoryInterface
 {
@@ -22,19 +22,19 @@ interface OrderRepositoryInterface
 
     /**
      * @param int $id
-     * @return OrderEntity
+     * @return OrdersEntity
      */
-    public function get(int $id): OrderEntity;
+    public function get(int $id): OrdersEntity;
 
     /**
-     * @param OrderEntity $orderEntity
-     * @return OrderEntity
+     * @param OrdersEntity $orderEntity
+     * @return OrdersEntity
      */
-    public function post(OrderEntity $orderEntity): OrderEntity;
+    public function post(OrdersEntity $orderEntity): OrdersEntity;
 
     /**
-     * @param OrderEntity $orderEntity
-     * @return OrderEntity
+     * @param OrdersEntity $orderEntity
+     * @return OrdersEntity
      */
-    public function put(OrderEntity $orderEntity): OrderEntity;
+    public function put(OrdersEntity $orderEntity): OrdersEntity;
 }

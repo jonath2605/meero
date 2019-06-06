@@ -9,7 +9,7 @@
 namespace App\Infrastructure\Order\Repository;
 
 use App\Domain\Order\Entity\OrderCollection;
-use App\Domain\Order\Entity\OrderEntity;
+use App\Domain\Order\Entity\OrdersEntity;
 use App\Domain\Order\Exception\OrderNotFoundException;
 use App\Domain\Order\Repository\OrderRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
@@ -37,7 +37,7 @@ class OrderRepository implements OrderRepositoryInterface
     {
         $orders = $this
             ->entityManger
-            ->getRepository(OrderEntity::class)
+            ->getRepository(OrdersEntity::class)
             ->findBy([], null, $limit, $offset);
 
         $ordersCollection = new OrderCollection();
@@ -51,14 +51,14 @@ class OrderRepository implements OrderRepositoryInterface
     /**
      * @inheritdoc
      */
-    public function get(int $id): OrderEntity
+    public function get(int $id): OrdersEntity
     {
         $orderEntity = $this
             ->entityManger
-            ->getRepository(OrderEntity::class)
+            ->getRepository(OrdersEntity::class)
             ->find($id);
 
-        if(!($orderEntity instanceof OrderEntity)) {
+        if(!($orderEntity instanceof OrdersEntity)) {
             throw OrderNotFoundException::createFromId($id);
         }
 
@@ -68,7 +68,7 @@ class OrderRepository implements OrderRepositoryInterface
     /**
      * @inheritdoc
      */
-    public function post(OrderEntity $orderEntity): OrderEntity
+    public function post(OrdersEntity $orderEntity): OrdersEntity
     {
         $this->entityManger->persist($orderEntity);
         $this->entityManger->flush();
@@ -78,7 +78,7 @@ class OrderRepository implements OrderRepositoryInterface
     /**
      * @inheritdoc
      */
-    public function put(OrderEntity $orderEntity): OrderEntity
+    public function put(OrdersEntity $orderEntity): OrdersEntity
     {
         $this->entityManger->flush();
         return $orderEntity;

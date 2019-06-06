@@ -8,7 +8,7 @@
 
 namespace App\Domain\Order\Entity;
 
-class OrderEntity
+class OrdersEntity
 {
     /**
      * @var int
@@ -58,9 +58,9 @@ class OrderEntity
 
     /**
      * @param string $orderId
-     * @return OrderEntity
+     * @return OrdersEntity
      */
-    public function setOrderId(string $orderId): OrderEntity
+    public function setOrderId(string $orderId): OrdersEntity
     {
         $this->orderId = $orderId;
         return $this;
@@ -76,9 +76,9 @@ class OrderEntity
 
     /**
      * @param $orderStatus
-     * @return OrderEntity
+     * @return OrdersEntity
      */
-    public function setOrderStatus($orderStatus): OrderEntity
+    public function setOrderStatus($orderStatus): OrdersEntity
     {
         $this->orderStatus = $orderStatus;
         return $this;
@@ -94,9 +94,9 @@ class OrderEntity
 
     /**
      * @param $orderMrid
-     * @return OrderEntity
+     * @return OrdersEntity
      */
-    public function setOrderMrid($orderMrid): OrderEntity
+    public function setOrderMrid($orderMrid): OrdersEntity
     {
         $this->orderMrid = $orderMrid;
         return $this;
@@ -112,9 +112,9 @@ class OrderEntity
 
     /**
      * @param $orderRefid
-     * @return OrderEntity
+     * @return OrdersEntity
      */
-    public function setOrderRefid($orderRefid): OrderEntity
+    public function setOrderRefid($orderRefid): OrdersEntity
     {
         $this->orderRefid = $orderRefid;
         return $this;
@@ -130,11 +130,26 @@ class OrderEntity
 
     /**
      * @param $orderPurchaseDate
-     * @return OrderEntity
+     * @return OrdersEntity
      */
-    public function setOrderPurchaseDate($orderPurchaseDate): OrderEntity
+    public function setOrderPurchaseDate($orderPurchaseDate): OrdersEntity
     {
         $this->orderPurchaseDate = $orderPurchaseDate;
         return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function toArray(): array
+    {
+        return [
+            "id" => $this->id,
+            "order_id" => $this->orderId,
+            "order_status" => $this->orderStatus,
+            "order_mrid" => $this->orderMrid,
+            "order_refid" => $this->orderRefid,
+            "birth_date" => $this->orderPurchaseDate->format('Y-m-d H:i:s'),
+        ];
     }
 }

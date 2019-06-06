@@ -11,18 +11,18 @@ namespace App\Domain\Order\Entity;
 class OrderCollection extends \SplObjectStorage
 {
     /**
-     * @param OrderEntity $object
+     * @param OrdersEntity $object
      * @param null $data
      */
-    public function add(OrderEntity $object, $data = null)
+    public function add(OrdersEntity $object, $data = null)
     {
         parent::attach($object, $data);
     }
 
     /**
-     * @param OrderEntity $object
+     * @param OrdersEntity $object
      */
-    public function remove(OrderEntity $object)
+    public function remove(OrdersEntity $object)
     {
         parent::detach($object);
     }

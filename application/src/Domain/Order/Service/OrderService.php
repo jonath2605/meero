@@ -9,7 +9,7 @@
 namespace App\Domain\Order\Service;
 
 use App\Domain\Order\Entity\OrderCollection;
-use App\Domain\Order\Entity\OrderEntity;
+use App\Domain\Order\Entity\OrdersEntity;
 use App\Domain\Order\Exception\InvalidParameterException;
 use App\Domain\Order\Repository\OrderRepositoryInterface;
 use Valitron\Validator;
@@ -42,24 +42,23 @@ class OrderService
 
     /**
      * @param int $id
-     * @return OrderEntity
+     * @return OrdersEntity
      */
-    public function get(int $id): OrderEntity
+    public function get(int $id): OrdersEntity
     {
         return $this->orderRepository->get($id);
     }
 
     /**
      * @param array $params
-     * @return OrderEntity
+     * @return OrdersEntity
      */
-    public function post(array $params): OrderEntity
+    public function post(array $params): OrdersEntity
     {
         $validator = new Validator($params);
         $validator->rules(
             [
                 "required" => ['order_id', 'order_status'],
-                "alpha" => ['order_id', 'order_status', 'order_mrid', 'order_refid'],
                 "date" => ['order_purchase_date'],
             ]
         );
@@ -68,7 +67,7 @@ class OrderService
             throw InvalidParameterException::createFromErrors($validator->errors());
         }
 
-        $orderEntity = new OrderEntity();
+        $orderEntity = new OrdersEntity();
         $orderEntity->setOrderId($params['order_id']);
         $orderEntity->setOrderStatus($params['order_status']);
 
@@ -89,16 +88,15 @@ class OrderService
 
     /**
      * @param array $params
-     * @return OrderEntity
+     * @return OrdersEntity
      */
-    public function put(array $params): OrderEntity
+    public function put(array $params): OrdersEntity
     {
         $validator = new Validator($params);
         $validator->rules(
             [
                 "required" => ['id'],
                 "integer" => ['id'],
-                "alpha" => ['order_id', 'order_status', 'order_mrid', 'order_refid'],
                 "date" => ['order_purchase_date'],
             ]
         );
