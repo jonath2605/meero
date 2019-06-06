@@ -1,0 +1,39 @@
+version: '3.2'
+services:
+  meero_php-fpm:
+    container_name: meero_php-fpm
+    build:
+      context: ./../../application
+      dockerfile: ./infrastructure/docker/php-fpm/Dockerfile
+    volumes:
+      - type: bind
+        source: ./../../application
+        target: /var/www/html
+
+  meero_nginx:
+    container_name: meero_nginx
+    build:
+      context: ./../../application
+      dockerfile: ./infrastructure/docker/nginx/Dockerfile
+    volumes:
+      - type: bind
+        source: ./../../application
+        target: /var/www/html
+    ports:
+      - "9082:80"
+
+  meero_mysql:
+    container_name: meero_mysql
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=meero
+
+  meero_phpmyadmin:
+    container_name: meero_phpmyadmin
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "9083:80"
+    environment:
+      - PMA_HOST=meero_mysql
+      - PMA_PORT=3306
