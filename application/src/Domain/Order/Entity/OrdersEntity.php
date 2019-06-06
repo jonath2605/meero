@@ -149,7 +149,7 @@ class OrdersEntity
             "order_status" => $this->orderStatus,
             "order_mrid" => $this->orderMrid,
             "order_refid" => $this->orderRefid,
-            "birth_date" => $this->orderPurchaseDate->format('Y-m-d H:i:s'),
+            "birth_date" => !empty($this->orderPurchaseDate) ? $this->orderPurchaseDate->format('Y-m-d H:i:s') : null,
         ];
     }
 }

@@ -59,7 +59,6 @@ class OrderService
         $validator->rules(
             [
                 "required" => ['order_id', 'order_status'],
-                "date" => ['order_purchase_date'],
             ]
         );
 
@@ -97,7 +96,6 @@ class OrderService
             [
                 "required" => ['id'],
                 "integer" => ['id'],
-                "date" => ['order_purchase_date'],
             ]
         );
 

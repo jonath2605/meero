@@ -13,3 +13,6 @@ migration: ##@Docker execute migration
 
 migrate: ##@Docker execute migration
 	docker exec -it meero_php-fpm php bin/console doctrine:migrations:migrate
+
+import: ##@Docker execute import
+	docker exec -it meero_php-fpm php bin/console app:import
