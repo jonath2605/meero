@@ -8,6 +8,8 @@ start: ##@Docker start container
 stop: ##@Docker stop container
 	docker-compose -f infrastructure/docker/docker-compose-local.yml -p meero-network stop
 
+migration: ##@Docker execute migration
+	docker exec -it meero_php-fpm php bin/console make:migration
+
 migrate: ##@Docker execute migration
 	docker exec -it meero_php-fpm php bin/console doctrine:migrations:migrate
-
